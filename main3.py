@@ -12,8 +12,6 @@ from logger import log
 
 import ast
 
-import asyncio
-
 from smtp_email import Send
 
 # GL_TAGS = [
@@ -50,7 +48,7 @@ GL_TAGS = [
 
 COM_PORT = "/dev/ttyUSB0"
 
-async def initiate_modbus():
+def initiate_modbus():
     '''Initiate modbus connection'''
     try:
         # Modbus Rtu Connection
@@ -68,14 +66,14 @@ async def initiate_modbus():
         log.info(e)
     return client
 
-async def get_tags_data(client):
+def get_tags_data(client):
     '''Get final tag values after conversions'''
     # List containing data of all tags
     data = []
     
     log.info("Getting Tags Data...")
     for tag in GL_TAGS:
-        # async define name, address, decimals for the tags
+        # Define name, address, decimals for the tags
         tag_name = tag[0]
         tag_address = tag[1]
         tag_decimals = tag[2]
@@ -93,7 +91,7 @@ async def get_tags_data(client):
             log.error(f"Failed to read data for tag {tag_name} at address {tag_address}: {e}")
             continue
         
-        # define low word and high word for the register since high word is +1 address of low word
+        # Define low word and high word for the register since high word is +1 address of low word
         if response:
             high_word = response.registers[1]
             low_word = response.registers[0]
@@ -169,7 +167,7 @@ def write_double(client, tag_name, tag_value):
     client.write_register(address=tag_register, value=low_word)
     client.write_register(address=tag_register + 1, value=high_word)
     
-async def get_write_requests(client):
+def get_write_requests(client):
     '''Get any requests for writing a register from write_requests queue'''
     
     connection = pika.BlockingConnection(pika.ConnectionParameters(
@@ -253,30 +251,26 @@ def email_notify(data):
         log.info("TAG 2 Value Moderate")
         
 
-async def process():
+def process():
     '''Main process for functioning'''
     # Declare the connection for RabbitMQ and Modbus Device
     rabbitmq_channel = declare_connection()
-    client = await initiate_modbus()
+    client = initiate_modbus()
     
     # Get the values for all the tags
-    data_tags = await get_tags_data(client)
+    data_tags = get_tags_data(client)
     
     # Check for any notification
     email_notify(data_tags)
     
     # Write any request in the write_requests queue
-    await get_write_requests(client)
+    get_write_requests(client)
     publish_data(rabbitmq_channel, data_tags)
     
     # Wait before next cycle
     time.sleep(1)
     client.close()
-
-async def main():
-    while True:
-        await process()
-
+    
 # Running the whole process
-if __name__ == "__main__":
-    asyncio.run(main())
+while True:
+    process()

@@ -1,0 +1,27 @@
+2025-01-09 23:53:04,726 [INFO] logger         :39        Logger initialized successfully!
+2025-01-09 23:53:05,406 [INFO] main           :64        Modbus Device Connected
+2025-01-09 23:53:05,407 [INFO] main           :75        Getting Tags Data...
+2025-01-09 23:53:05,408 [INFO] main           :81        Reading tag: tag_1
+2025-01-09 23:53:05,424 [INFO] main           :101       Converting data for tag tag_1 - High Word: 435, Low Word: 0
+2025-01-09 23:53:05,425 [INFO] main           :103       Converted value for tag_1: 435
+2025-01-09 23:53:05,427 [INFO] main           :111       Converted tag_1 into signed: 435
+2025-01-09 23:53:05,428 [INFO] main           :81        Reading tag: tag_2
+2025-01-09 23:53:05,440 [INFO] main           :101       Converting data for tag tag_2 - High Word: 1400, Low Word: 0
+2025-01-09 23:53:05,442 [INFO] main           :103       Converted value for tag_2: 1400
+2025-01-09 23:53:05,443 [INFO] main           :111       Converted tag_2 into signed: 1400
+2025-01-09 23:53:05,445 [INFO] main           :81        Reading tag: tag_3
+2025-01-09 23:53:05,457 [INFO] main           :101       Converting data for tag tag_3 - High Word: 2220, Low Word: 0
+2025-01-09 23:53:05,459 [INFO] main           :103       Converted value for tag_3: 2220
+2025-01-09 23:53:05,461 [INFO] main           :111       Converted tag_3 into signed: 2220
+2025-01-09 23:53:05,464 [INFO] main           :81        Reading tag: tag_4
+2025-01-09 23:53:05,480 [INFO] main           :101       Converting data for tag tag_4 - High Word: 2006, Low Word: 2007
+2025-01-09 23:53:05,482 [INFO] main           :103       Converted value for tag_4: 131532758
+2025-01-09 23:53:05,483 [INFO] main           :111       Converted tag_4 into signed: 131532758
+2025-01-09 23:53:05,486 [INFO] main           :81        Reading tag: tag_5
+2025-01-09 23:53:05,496 [INFO] main           :101       Converting data for tag tag_5 - High Word: 20046, Low Word: 16717
+2025-01-09 23:53:05,498 [INFO] main           :103       Converted value for tag_5: 1095585358
+2025-01-09 23:53:05,499 [INFO] main           :111       Converted tag_5 into signed: 1095585358
+2025-01-09 23:53:05,500 [INFO] main           :121       Data after conversion: [['tag_1', 435], ['tag_2', 1400], ['tag_3', 2220], ['tag_4', 131532758], ['tag_5', 'MANN']]
+2025-01-09 23:53:05,502 [INFO] main           :252       TAG 2 Value Moderate
+2025-01-09 23:53:05,781 [INFO] main           :217       No messages in the queue.
+2025-01-09 23:53:05,866 [INFO] rabbit_mq      :35        Message published successfully.

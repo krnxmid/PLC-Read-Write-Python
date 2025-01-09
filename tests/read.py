@@ -1,6 +1,7 @@
-from pymodbus.client import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 import struct
-client = ModbusSerialClient(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+# client = ModbusSerialClient(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+client = ModbusTcpClient("192.168.1.145", port=502)
 
 if client.connect():
     print("Connected to modbus device!")
