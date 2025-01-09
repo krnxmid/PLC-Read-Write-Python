@@ -1,0 +1,76 @@
+2025-01-08 00:54:10,113 [INFO] logger         :39        Logger initialized successfully!
+2025-01-08 00:54:10,714 [INFO] main           :56        Modbus Device Connected
+2025-01-08 00:54:10,715 [INFO] main           :64        Getting Tags Data...
+2025-01-08 00:54:10,716 [INFO] main           :69        Reading tag: tag_1
+2025-01-08 00:54:10,733 [INFO] main           :88        Converting data for tag tag_1 - High Word: 15702, Low Word: 3
+2025-01-08 00:54:10,734 [INFO] main           :92        Converted value for tag_1: 212310
+2025-01-08 00:54:10,735 [INFO] main           :99        Converted tag_1 into signed: 212310
+2025-01-08 00:54:10,736 [INFO] main           :69        Reading tag: tag_2
+2025-01-08 00:54:10,745 [INFO] main           :88        Converting data for tag tag_2 - High Word: 12309, Low Word: 0
+2025-01-08 00:54:10,746 [INFO] main           :92        Converted value for tag_2: 12309
+2025-01-08 00:54:10,747 [INFO] main           :99        Converted tag_2 into signed: 12309
+2025-01-08 00:54:10,748 [INFO] main           :69        Reading tag: tag_3
+2025-01-08 00:54:10,761 [INFO] main           :88        Converting data for tag tag_3 - High Word: 2220, Low Word: 0
+2025-01-08 00:54:10,762 [INFO] main           :92        Converted value for tag_3: 2220
+2025-01-08 00:54:10,763 [INFO] main           :99        Converted tag_3 into signed: 2220
+2025-01-08 00:54:10,764 [INFO] main           :69        Reading tag: tag_4
+2025-01-08 00:54:10,777 [INFO] main           :88        Converting data for tag tag_4 - High Word: 2006, Low Word: 2007
+2025-01-08 00:54:10,778 [INFO] main           :92        Converted value for tag_4: 131532758
+2025-01-08 00:54:10,779 [INFO] main           :99        Converted tag_4 into signed: 131532758
+2025-01-08 00:54:10,780 [INFO] main           :69        Reading tag: tag_5
+2025-01-08 00:54:10,793 [INFO] main           :88        Converting data for tag tag_5 - High Word: 16961, Low Word: 17475
+2025-01-08 00:54:10,794 [INFO] main           :92        Converted value for tag_5: 1145258561
+2025-01-08 00:54:10,795 [INFO] main           :99        Converted tag_5 into signed: 1145258561
+2025-01-08 00:54:10,796 [INFO] main           :111       Data after conversion: [['tag_1', 212310], ['tag_2', 12309], ['tag_3', 2220], ['tag_4', 131532758], ['tag_5', 'CDAB']]
+2025-01-08 00:54:11,093 [INFO] main           :193       No messages in the queue.
+2025-01-08 00:54:11,169 [INFO] rabbit_mq      :29        Message published successfully.
+2025-01-08 00:54:13,454 [INFO] main           :56        Modbus Device Connected
+2025-01-08 00:54:13,455 [INFO] main           :64        Getting Tags Data...
+2025-01-08 00:54:13,456 [INFO] main           :69        Reading tag: tag_1
+2025-01-08 00:54:13,473 [INFO] main           :88        Converting data for tag tag_1 - High Word: 15702, Low Word: 3
+2025-01-08 00:54:13,474 [INFO] main           :92        Converted value for tag_1: 212310
+2025-01-08 00:54:13,475 [INFO] main           :99        Converted tag_1 into signed: 212310
+2025-01-08 00:54:13,476 [INFO] main           :69        Reading tag: tag_2
+2025-01-08 00:54:13,489 [INFO] main           :88        Converting data for tag tag_2 - High Word: 12309, Low Word: 0
+2025-01-08 00:54:13,490 [INFO] main           :92        Converted value for tag_2: 12309
+2025-01-08 00:54:13,491 [INFO] main           :99        Converted tag_2 into signed: 12309
+2025-01-08 00:54:13,492 [INFO] main           :69        Reading tag: tag_3
+2025-01-08 00:54:13,501 [INFO] main           :88        Converting data for tag tag_3 - High Word: 2220, Low Word: 0
+2025-01-08 00:54:13,502 [INFO] main           :92        Converted value for tag_3: 2220
+2025-01-08 00:54:13,503 [INFO] main           :99        Converted tag_3 into signed: 2220
+2025-01-08 00:54:13,504 [INFO] main           :69        Reading tag: tag_4
+2025-01-08 00:54:13,517 [INFO] main           :88        Converting data for tag tag_4 - High Word: 2006, Low Word: 2007
+2025-01-08 00:54:13,518 [INFO] main           :92        Converted value for tag_4: 131532758
+2025-01-08 00:54:13,519 [INFO] main           :99        Converted tag_4 into signed: 131532758
+2025-01-08 00:54:13,520 [INFO] main           :69        Reading tag: tag_5
+2025-01-08 00:54:13,529 [INFO] main           :88        Converting data for tag tag_5 - High Word: 16961, Low Word: 17475
+2025-01-08 00:54:13,530 [INFO] main           :92        Converted value for tag_5: 1145258561
+2025-01-08 00:54:13,531 [INFO] main           :99        Converted tag_5 into signed: 1145258561
+2025-01-08 00:54:13,532 [INFO] main           :111       Data after conversion: [['tag_1', 212310], ['tag_2', 12309], ['tag_3', 2220], ['tag_4', 131532758], ['tag_5', 'CDAB']]
+2025-01-08 00:54:13,821 [INFO] main           :193       No messages in the queue.
+2025-01-08 00:54:13,907 [INFO] rabbit_mq      :29        Message published successfully.
+2025-01-08 00:54:16,154 [INFO] main           :56        Modbus Device Connected
+2025-01-08 00:54:16,155 [INFO] main           :64        Getting Tags Data...
+2025-01-08 00:54:16,156 [INFO] main           :69        Reading tag: tag_1
+2025-01-08 00:54:16,169 [INFO] main           :88        Converting data for tag tag_1 - High Word: 15702, Low Word: 3
+2025-01-08 00:54:16,170 [INFO] main           :92        Converted value for tag_1: 212310
+2025-01-08 00:54:16,171 [INFO] main           :99        Converted tag_1 into signed: 212310
+2025-01-08 00:54:16,172 [INFO] main           :69        Reading tag: tag_2
+2025-01-08 00:54:16,185 [INFO] main           :88        Converting data for tag tag_2 - High Word: 12309, Low Word: 0
+2025-01-08 00:54:16,186 [INFO] main           :92        Converted value for tag_2: 12309
+2025-01-08 00:54:16,187 [INFO] main           :99        Converted tag_2 into signed: 12309
+2025-01-08 00:54:16,188 [INFO] main           :69        Reading tag: tag_3
+2025-01-08 00:54:16,193 [INFO] main           :88        Converting data for tag tag_3 - High Word: 2220, Low Word: 0
+2025-01-08 00:54:16,194 [INFO] main           :92        Converted value for tag_3: 2220
+2025-01-08 00:54:16,196 [INFO] main           :99        Converted tag_3 into signed: 2220
+2025-01-08 00:54:16,197 [INFO] main           :69        Reading tag: tag_4
+2025-01-08 00:54:16,213 [INFO] main           :88        Converting data for tag tag_4 - High Word: 2006, Low Word: 2007
+2025-01-08 00:54:16,214 [INFO] main           :92        Converted value for tag_4: 131532758
+2025-01-08 00:54:16,215 [INFO] main           :99        Converted tag_4 into signed: 131532758
+2025-01-08 00:54:16,216 [INFO] main           :69        Reading tag: tag_5
+2025-01-08 00:54:16,225 [INFO] main           :88        Converting data for tag tag_5 - High Word: 16961, Low Word: 17475
+2025-01-08 00:54:16,226 [INFO] main           :92        Converted value for tag_5: 1145258561
+2025-01-08 00:54:16,227 [INFO] main           :99        Converted tag_5 into signed: 1145258561
+2025-01-08 00:54:16,228 [INFO] main           :111       Data after conversion: [['tag_1', 212310], ['tag_2', 12309], ['tag_3', 2220], ['tag_4', 131532758], ['tag_5', 'CDAB']]
+2025-01-08 00:54:16,522 [INFO] main           :193       No messages in the queue.
+2025-01-08 00:54:16,607 [INFO] rabbit_mq      :29        Message published successfully.

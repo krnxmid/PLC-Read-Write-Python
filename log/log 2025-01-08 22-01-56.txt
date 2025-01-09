@@ -1,0 +1,1 @@
+2025-01-08 22:01:56,246 [INFO] logger         :39        Logger initialized successfully!

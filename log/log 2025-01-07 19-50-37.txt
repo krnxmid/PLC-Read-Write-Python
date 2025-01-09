@@ -1,0 +1,10 @@
+2025-01-07 19:50:37,988 [INFO] logger         :39        Logger initialized successfully!
+2025-01-07 19:50:38,670 [INFO] main           :55        Modbus Device Connected
+2025-01-07 19:50:38,671 [INFO] main           :63        Getting Tags Data...
+2025-01-07 19:50:38,672 [INFO] main           :68        Reading tag: tag_1
+2025-01-07 19:50:41,677 [ERROR] tcp            :200       Connection to (192.168.1.145, 502) failed: timed out
+2025-01-07 19:50:41,678 [ERROR] main           :78        Failed to read data for tag tag_1 at address 6096: Modbus Error: [Connection] Failed to connect[ModbusTcpClient 192.168.1.145:502]
+2025-01-07 19:50:41,679 [INFO] main           :68        Reading tag: tag_2
+2025-01-07 19:50:41,740 [ERROR] tcp            :200       Connection to (192.168.1.145, 502) failed: [Errno 113] No route to host
+2025-01-07 19:50:41,741 [ERROR] main           :78        Failed to read data for tag tag_2 at address 6098: Modbus Error: [Connection] Failed to connect[ModbusTcpClient 192.168.1.145:502]
+2025-01-07 19:50:41,742 [INFO] main           :68        Reading tag: tag_3

@@ -1,0 +1,4 @@
+2025-01-09 23:06:19,404 [INFO] logger         :39        Logger initialized successfully!
+2025-01-09 23:06:19,406 [INFO] smtp_email     :15        Connecting to SMTP
+2025-01-09 23:06:19,407 [INFO] smtp_email     :19        Connected to SMTP!
+2025-01-09 23:06:22,720 [INFO] smtp_email     :36        Sent!

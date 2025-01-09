@@ -1,0 +1,58 @@
+2025-01-09 23:20:42,479 [INFO] logger         :39        Logger initialized successfully!
+2025-01-09 23:20:42,890 [INFO] smtp_email     :41        Not Sent: name 'send' is not defined
+2025-01-09 23:20:43,158 [INFO] main           :63        Modbus Device Connected
+2025-01-09 23:20:43,159 [INFO] main           :74        Getting Tags Data...
+2025-01-09 23:20:43,160 [INFO] main           :80        Reading tag: tag_1
+2025-01-09 23:20:43,176 [INFO] main           :100       Converting data for tag tag_1 - High Word: 435, Low Word: 0
+2025-01-09 23:20:43,177 [INFO] main           :102       Converted value for tag_1: 435
+2025-01-09 23:20:43,178 [INFO] main           :110       Converted tag_1 into signed: 435
+2025-01-09 23:20:43,180 [INFO] main           :80        Reading tag: tag_2
+2025-01-09 23:20:43,192 [INFO] main           :100       Converting data for tag tag_2 - High Word: 3430, Low Word: 0
+2025-01-09 23:20:43,193 [INFO] main           :102       Converted value for tag_2: 3430
+2025-01-09 23:20:43,194 [INFO] main           :110       Converted tag_2 into signed: 3430
+2025-01-09 23:20:43,196 [INFO] main           :80        Reading tag: tag_3
+2025-01-09 23:20:43,208 [INFO] main           :100       Converting data for tag tag_3 - High Word: 2220, Low Word: 0
+2025-01-09 23:20:43,209 [INFO] main           :102       Converted value for tag_3: 2220
+2025-01-09 23:20:43,210 [INFO] main           :110       Converted tag_3 into signed: 2220
+2025-01-09 23:20:43,212 [INFO] main           :80        Reading tag: tag_4
+2025-01-09 23:20:43,220 [INFO] main           :100       Converting data for tag tag_4 - High Word: 2006, Low Word: 2007
+2025-01-09 23:20:43,221 [INFO] main           :102       Converted value for tag_4: 131532758
+2025-01-09 23:20:43,222 [INFO] main           :110       Converted tag_4 into signed: 131532758
+2025-01-09 23:20:43,223 [INFO] main           :80        Reading tag: tag_5
+2025-01-09 23:20:43,232 [INFO] main           :100       Converting data for tag tag_5 - High Word: 20046, Low Word: 16717
+2025-01-09 23:20:43,233 [INFO] main           :102       Converted value for tag_5: 1095585358
+2025-01-09 23:20:43,234 [INFO] main           :110       Converted tag_5 into signed: 1095585358
+2025-01-09 23:20:43,236 [INFO] main           :120       Data after conversion: [['tag_1', 435], ['tag_2', 3430], ['tag_3', 2220], ['tag_4', 131532758], ['tag_5', 'MANN']]
+2025-01-09 23:20:43,237 [INFO] main           :245       TAG 2 Value exceeded 1500!
+2025-01-09 23:20:43,238 [INFO] smtp_email     :15        Connecting to SMTP
+2025-01-09 23:20:43,240 [INFO] smtp_email     :19        Connected to SMTP!
+2025-01-09 23:20:43,241 [INFO] main           :249       Not Sent!: name 'valie' is not defined
+2025-01-09 23:20:43,549 [INFO] main           :216       No messages in the queue.
+2025-01-09 23:20:43,628 [INFO] rabbit_mq      :35        Message published successfully.
+2025-01-09 23:20:44,865 [INFO] main           :63        Modbus Device Connected
+2025-01-09 23:20:44,866 [INFO] main           :74        Getting Tags Data...
+2025-01-09 23:20:44,868 [INFO] main           :80        Reading tag: tag_1
+2025-01-09 23:20:44,880 [INFO] main           :100       Converting data for tag tag_1 - High Word: 435, Low Word: 0
+2025-01-09 23:20:44,881 [INFO] main           :102       Converted value for tag_1: 435
+2025-01-09 23:20:44,882 [INFO] main           :110       Converted tag_1 into signed: 435
+2025-01-09 23:20:44,884 [INFO] main           :80        Reading tag: tag_2
+2025-01-09 23:20:44,896 [INFO] main           :100       Converting data for tag tag_2 - High Word: 3430, Low Word: 0
+2025-01-09 23:20:44,897 [INFO] main           :102       Converted value for tag_2: 3430
+2025-01-09 23:20:44,898 [INFO] main           :110       Converted tag_2 into signed: 3430
+2025-01-09 23:20:44,900 [INFO] main           :80        Reading tag: tag_3
+2025-01-09 23:20:44,916 [INFO] main           :100       Converting data for tag tag_3 - High Word: 2220, Low Word: 0
+2025-01-09 23:20:44,917 [INFO] main           :102       Converted value for tag_3: 2220
+2025-01-09 23:20:44,918 [INFO] main           :110       Converted tag_3 into signed: 2220
+2025-01-09 23:20:44,920 [INFO] main           :80        Reading tag: tag_4
+2025-01-09 23:20:44,932 [INFO] main           :100       Converting data for tag tag_4 - High Word: 2006, Low Word: 2007
+2025-01-09 23:20:44,933 [INFO] main           :102       Converted value for tag_4: 131532758
+2025-01-09 23:20:44,934 [INFO] main           :110       Converted tag_4 into signed: 131532758
+2025-01-09 23:20:44,936 [INFO] main           :80        Reading tag: tag_5
+2025-01-09 23:20:44,944 [INFO] main           :100       Converting data for tag tag_5 - High Word: 20046, Low Word: 16717
+2025-01-09 23:20:44,946 [INFO] main           :102       Converted value for tag_5: 1095585358
+2025-01-09 23:20:44,947 [INFO] main           :110       Converted tag_5 into signed: 1095585358
+2025-01-09 23:20:44,949 [INFO] main           :120       Data after conversion: [['tag_1', 435], ['tag_2', 3430], ['tag_3', 2220], ['tag_4', 131532758], ['tag_5', 'MANN']]
+2025-01-09 23:20:44,951 [INFO] main           :245       TAG 2 Value exceeded 1500!
+2025-01-09 23:20:44,953 [INFO] smtp_email     :15        Connecting to SMTP
+2025-01-09 23:20:44,954 [INFO] smtp_email     :19        Connected to SMTP!
+2025-01-09 23:20:44,956 [INFO] main           :249       Not Sent!: name 'valie' is not defined
