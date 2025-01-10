@@ -236,8 +236,9 @@ def ascii_write(message_data, client):
     except Exception as e:
         log.error(f"Tag not written: {e}")
 
+history = []
 def email_notify(data):
-    history = []
+    global history
     '''Email Notification system'''
     for tag in data:
         if tag[0] == "tag_2":
