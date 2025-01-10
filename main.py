@@ -239,13 +239,25 @@ def ascii_write(message_data, client):
 history = []
 def email_notify(data):
     global history
+    TAG2_LIMIT = 1500
     '''Email Notification system'''
     for tag in data:
         if tag[0] == "tag_2":
             tag_name = tag[0]
             tag_value = tag[1]
         
-    if history[0] != tag_value and tag_value > 1500:
+    if len(history) == 0 and tag_value > TAG2_LIMIT:
+        history.append(tag_value)
+        
+        log.info("TAG 2 Value exceeded 1500!")
+        try:
+            response = Send(tag_name, tag_value)
+        except Exception as e:
+            log.info(f"Not Sent!: {e}")
+    else:
+        log.info("TAG 2 Value Moderate")
+        
+    if history[0] != tag_value and tag_value > TAG2_LIMIT:
         log.info("TAG 2 Value exceeded 1500!")
         try:
             response = Send(tag_name, tag_value)
