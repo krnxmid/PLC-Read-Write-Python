@@ -244,7 +244,7 @@ def email_notify(data):
             tag_name = tag[0]
             tag_value = tag[1]
         
-    if tag_value > 1500:
+    if history[0] != tag_value and tag_value > 1500:
         log.info("TAG 2 Value exceeded 1500!")
         try:
             response = Send(tag_name, tag_value)
@@ -252,6 +252,8 @@ def email_notify(data):
             log.info(f"Not Sent!: {e}")
     else:
         log.info("TAG 2 Value Moderate")
+    
+    history.append(tag_value)
         
 
 async def process():
