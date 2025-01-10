@@ -246,16 +246,16 @@ def email_notify(data):
             tag_name = tag[0]
             tag_value = tag[1]
         
-    if len(history) == 0 and tag_value > TAG2_LIMIT:
-        history.append(tag_value)
+    #if len(history) == 0 and tag_value > TAG2_LIMIT:
+        #history.append(tag_value)
         
-        log.info("TAG 2 Value exceeded 1500!")
-        try:
-            response = Send(tag_name, tag_value)
-        except Exception as e:
-            log.info(f"Not Sent!: {e}")
-    else:
-        log.info("TAG 2 Value Moderate")
+        #log.info("TAG 2 Value exceeded 1500!")
+        #try:
+            #response = Send(tag_name, tag_value)
+        #except Exception as e:
+            #log.info(f"Not Sent!: {e}")
+    #else:
+        #log.info("TAG 2 Value Moderate")
         
     if history[0] != tag_value and tag_value > TAG2_LIMIT:
         log.info("TAG 2 Value exceeded 1500!")
@@ -263,6 +263,7 @@ def email_notify(data):
             response = Send(tag_name, tag_value)
         except Exception as e:
             log.info(f"Not Sent!: {e}")
+        history.clear()
     else:
         log.info("TAG 2 Value Moderate")
     
