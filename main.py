@@ -14,7 +14,9 @@ import ast
 
 import asyncio
 
-from smtp_email import Send
+from smtp_email import Send_email
+
+from wapp import Send_wapp
 
 # GL_TAGS = [
 #     ("tag_1", 4296, 10),
@@ -236,40 +238,48 @@ def ascii_write(message_data, client):
     except Exception as e:
         log.error(f"Tag not written: {e}")
 
-history = []
+previous_value = 0
+
 def email_notify(data):
-    global history
+    global previous_value
     TAG2_LIMIT = 1500
     '''Email Notification system'''
+    tag_name = None
+    tag_value = None
+    
+    # Extract tag_2 value from the data
     for tag in data:
         if tag[0] == "tag_2":
             tag_name = tag[0]
             tag_value = tag[1]
-        
-    #if len(history) == 0 and tag_value > TAG2_LIMIT:
-        #history.append(tag_value)
-        
-        #log.info("TAG 2 Value exceeded 1500!")
-        #try:
-            #response = Send(tag_name, tag_value)
-        #except Exception as e:
-            #log.info(f"Not Sent!: {e}")
-    #else:
-        #log.info("TAG 2 Value Moderate")
-        
-    if history[0] != tag_value and tag_value > TAG2_LIMIT:
-        log.info("TAG 2 Value exceeded 1500!")
-        try:
-            response = Send(tag_name, tag_value)
-        except Exception as e:
-            log.info(f"Not Sent!: {e}")
-        history.clear()
-    else:
-        log.info("TAG 2 Value Moderate")
-    
-    history.append(tag_value)
-        
+            break  # Exit loop once the required tag is found
 
+    # Log the tag value (value exceeding or moderate)
+    if tag_value > TAG2_LIMIT:
+        log.critical(f"{tag_name} VALUE EXCEEDED {TAG2_LIMIT}!")
+        log.critical(f"{tag_name} VALUE: {tag_value}")
+    else:
+        log.info(f"{tag_name} Value Moderate")    
+        log.critical(f"{tag_name} Value: {tag_value}")
+
+    # Check if the tag_value exceeds the limit and if the previous_value was below the limit
+    if tag_value > TAG2_LIMIT and previous_value <= TAG2_LIMIT:
+        try:
+            # Send notification only when the value crosses the limit from below
+            response = Send_email(tag_name, f"{tag_value}, Previous Value: {previous_value}")
+            # wapp_response = Send_wapp(tag_name, TAG2_LIMIT, tag_value, f"Previous Value: {previous_value}")
+            log.info(f"previous value: {previous_value}")
+            log.info("Notification Sent")
+            previous_value = tag_value  # Update the previous_value after notification is sent
+        except Exception as e:
+            log.info(f"Previous Value: {previous_value}")
+            log.error(f"Cannot send Email notification: {e}")
+    else:
+        # If no notification is sent, just update the previous_value without sending a notification
+        previous_value = tag_value
+        log.info(f"Previous Value: {previous_value}")
+        log.info("Notification Not Sent.")
+        
 async def process():
     '''Main process for functioning'''
     # Declare the connection for RabbitMQ and Modbus Device

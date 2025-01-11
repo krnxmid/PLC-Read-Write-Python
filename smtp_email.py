@@ -9,7 +9,7 @@ def Connect():
     
     return sender_email, password, to_email
     
-def Send(name, value):
+def Send_email(name, value):
     try:
         sender_email, password, to_email = Connect()
         log.info("Connecting to SMTP")
@@ -18,7 +18,7 @@ def Send(name, value):
     
     log.info("Connected to SMTP!")
     
-    subject = f"{name} Value exceeded!"
+    subject = f"{name} Value exceeded! {value}"
     edited_body = f"""
     {name} Value exceeded 1500!
     Value = {value}

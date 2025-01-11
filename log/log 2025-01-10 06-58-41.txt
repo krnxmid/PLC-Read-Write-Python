@@ -1,0 +1,2 @@
+2025-01-10 06:58:41,790 [INFO] logger         :39        Logger initialized successfully!
+2025-01-10 06:58:43,756 [INFO] rabbit_mq      :20        Failed to connect with rabbit mq: 

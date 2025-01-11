@@ -1,0 +1,24 @@
+2025-01-11 21:28:41,045 [INFO] logger         :39        Logger initialized successfully!
+2025-01-11 21:28:42,639 [INFO] main           :67        Modbus Device Connected
+2025-01-11 21:28:42,641 [INFO] main           :78        Getting Tags Data...
+2025-01-11 21:28:42,642 [INFO] main           :84        Reading tag: tag_1
+2025-01-11 21:28:42,662 [INFO] main           :104       Converting data for tag tag_1 - High Word: 1230, Low Word: 0
+2025-01-11 21:28:42,663 [INFO] main           :106       Converted value for tag_1: 1230
+2025-01-11 21:28:42,664 [INFO] main           :114       Converted tag_1 into signed: 1230
+2025-01-11 21:28:42,666 [INFO] main           :84        Reading tag: tag_2
+2025-01-11 21:28:42,682 [INFO] main           :104       Converting data for tag tag_2 - High Word: 1120, Low Word: 0
+2025-01-11 21:28:42,683 [INFO] main           :106       Converted value for tag_2: 1120
+2025-01-11 21:28:42,684 [INFO] main           :114       Converted tag_2 into signed: 1120
+2025-01-11 21:28:42,686 [INFO] main           :84        Reading tag: tag_3
+2025-01-11 21:28:42,694 [INFO] main           :104       Converting data for tag tag_3 - High Word: 20, Low Word: 0
+2025-01-11 21:28:42,695 [INFO] main           :106       Converted value for tag_3: 20
+2025-01-11 21:28:42,697 [INFO] main           :114       Converted tag_3 into signed: 20
+2025-01-11 21:28:42,698 [INFO] main           :84        Reading tag: tag_4
+2025-01-11 21:28:42,709 [INFO] main           :104       Converting data for tag tag_4 - High Word: 10, Low Word: 0
+2025-01-11 21:28:42,711 [INFO] main           :106       Converted value for tag_4: 10
+2025-01-11 21:28:42,712 [INFO] main           :114       Converted tag_4 into signed: 10
+2025-01-11 21:28:42,714 [INFO] main           :84        Reading tag: tag_5
+2025-01-11 21:28:42,726 [INFO] main           :104       Converting data for tag tag_5 - High Word: 25185, Low Word: 25185
+2025-01-11 21:28:42,727 [INFO] main           :106       Converted value for tag_5: 1650549345
+2025-01-11 21:28:42,730 [INFO] main           :114       Converted tag_5 into signed: 1650549345
+2025-01-11 21:28:42,731 [INFO] main           :124       Data after conversion: [['tag_1', 1230], ['tag_2', 1120], ['tag_3', 20], ['tag_4', 10], ['tag_5', 'abab']]
