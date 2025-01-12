@@ -34,7 +34,7 @@ ROUTING_KEY = "plc_data" # Routing key for outgoing data
 INTERVAL = 1 # Interval for Every Cycle
 FRICTIONAL_DIGIT = 2 # Amount of fractional digits
 
-async def initiate_modbus():
+async def Initiate_Modbus():
     '''Initiate modbus connection'''
     try:
         # Initiating Connection
@@ -46,7 +46,7 @@ async def initiate_modbus():
 
     return client
 
-async def get_tags_data(client):
+async def Get_Tags_Data(client):
     '''Get final tag values after conversions'''
     # List containing data of all tags
     data = []
@@ -93,7 +93,7 @@ async def get_tags_data(client):
             
 
         if tag_name == "tag_5":
-            ascii_read(low_word, high_word, data)
+            ASCII_Read(low_word, high_word, data)
         else:
             data.append([tag_name, tag_value])
         
@@ -101,7 +101,7 @@ async def get_tags_data(client):
     return data
 
     
-async def get_write_requests(client):
+async def Get_Write_Requests(client):
     '''Get any requests for writing a register from write_requests queue'''
     
     # Connect to RabbitMQ
@@ -123,15 +123,15 @@ async def get_write_requests(client):
             
             
             if tag_name == "tag_5": # Recieve request for writing tag 5
-                ascii_write(message_data, client)   
+                ASCII_Write(message_data, client)   
             else: # Write for tags other than tag 5
                 try:
                     tag_value = message_data[1]
                     # Format value for proper decimal
-                    converted_value = format_value(tag_value)
+                    converted_value = Format_Value(tag_value)
                     
                     try:
-                        response = write_double(client, tag_name, converted_value)
+                        response = Write_Double(client, tag_name, converted_value)
                         log.info("Tag Written successfully!")
                     except Exception as e:
                         log.error(f"Tag not written: {e}")
@@ -148,7 +148,7 @@ async def get_write_requests(client):
     # Close the connection
     connection.close()
 
-def ascii_read(low_word, high_word, data):
+def ASCII_Read(low_word, high_word, data):
     '''Reading ascii registers and sending as a string of letters'''
     char1, char2 = convert_16bit_to_ascii(high_word)
     char3, char4 = convert_16bit_to_ascii(low_word)
@@ -156,7 +156,7 @@ def ascii_read(low_word, high_word, data):
     data.append(["tag_5", final_char])
     log.info(f"ASCII of tag_5: {final_char}")
     
-def format_value(value):
+def Format_Value(value):
     '''Formatting the incoming value to properly handle decimals and zeros'''
     # Convert the input to a string to handle it easily
     value_str = str(value).strip()
@@ -182,7 +182,7 @@ def format_value(value):
     
     return int(result)
 
-def write_double(client, tag_name, tag_value):
+def Write_Double(client, tag_name, tag_value):
     '''Write both low and high word Registers'''
     tag_register = None
     
@@ -202,7 +202,7 @@ def write_double(client, tag_name, tag_value):
     client.write_register(address=tag_register, value=low_word)
     client.write_register(address=tag_register + 1, value=high_word)
     
-def ascii_write(message_data, client):
+def ASCII_Write(message_data, client):
     '''Writing Double word values from server and writing them'''
     tag_name = "5"
     tag_lower = int(message_data[1])  # Keep it as a string for now
@@ -221,7 +221,7 @@ def ascii_write(message_data, client):
 
 previous_value = multiprocessing.Value('d', 0)  # Shared value, initial value is 0
 lock = multiprocessing.Lock()  # Lock to control access to shared value
-async def notification(data, previous_value, lock):
+async def Notification(data, previous_value, lock):
     '''Send Email and Wapp Notifications'''
     TAG2_LIMIT = 1500
     '''Email Notification system'''
@@ -263,23 +263,23 @@ async def notification(data, previous_value, lock):
             log.info(f"Previous Value: {previous_value.value}")
             log.info("Notification Not Sent.")
 
-def run_in_background(data, previous_value, lock):
-    asyncio.run(notification(data, previous_value, lock))
+def Run_In_Background(data, previous_value, lock):
+    asyncio.run(Notification(data, previous_value, lock))
 
 async def process():
     '''Main process for functioning'''
     start = time.time()
     rabbitmq_channel, connection = declare_connection(HOST_URL, USER, USER_PASSWORD)
-    client = await initiate_modbus()
+    client = await Initiate_Modbus()
     
     # Get the values for all the tags
-    data_tags = await get_tags_data(client)
+    data_tags = await Get_Tags_Data(client)
     
     # Start background process to handle email notifications
-    background_process = multiprocessing.Process(target=run_in_background, args=(data_tags, previous_value, lock))
+    background_process = multiprocessing.Process(target=Run_In_Background, args=(data_tags, previous_value, lock))
     background_process.start()
     
-    await get_write_requests(client)
+    await Get_Write_Requests(client)
     
     publish_data(rabbitmq_channel, data_tags, EXCHANGE_NAME, ROUTING_KEY)
     end = time.time()
