@@ -175,7 +175,8 @@ async def get_write_requests(client):
     '''Get any requests for writing a register from write_requests queue'''
     
     connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='65.0.237.181',  # Replace with the IP of your mini-computer
+        # host='65.0.237.181',  # Replace with the IP of your mini-computer
+        host='3.111.210.28',  # Replace with the IP of your mini-computer
         virtual_host='/',  # Ensure this matches the vhost you're using
         credentials=pika.PlainCredentials('plc_user', 'plc_password')  # Adjust if needed
     ))
@@ -240,7 +241,7 @@ def ascii_write(message_data, client):
 
 previous_value = 0
 
-def email_notify(data):
+async def email_notify(data):
     global previous_value
     TAG2_LIMIT = 1500
     '''Email Notification system'''
@@ -266,7 +267,7 @@ def email_notify(data):
     if tag_value > TAG2_LIMIT and previous_value <= TAG2_LIMIT:
         try:
             # Send notification only when the value crosses the limit from below
-            response = Send_email(tag_name, f"{tag_value}, Previous Value: {previous_value}")
+            response = await Send_email(tag_name, f"{tag_value}, Previous Value: {previous_value}")
             # wapp_response = Send_wapp(tag_name, TAG2_LIMIT, tag_value, f"Previous Value: {previous_value}")
             log.info(f"previous value: {previous_value}")
             log.info("Notification Sent")
@@ -290,7 +291,7 @@ async def process():
     data_tags = await get_tags_data(client)
     
     # Check for any notification
-    email_notify(data_tags)
+    await email_notify(data_tags)
     
     # Write any request in the write_requests queue
     await get_write_requests(client)

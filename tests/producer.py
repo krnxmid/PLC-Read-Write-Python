@@ -2,7 +2,7 @@ import pika
 import time
 
 # Connection parameters
-connection_params = pika.ConnectionParameters(host='65.0.237.181', 
+connection_params = pika.ConnectionParameters(host='3.111.210.28', 
                                                credentials=pika.PlainCredentials('plc_user', 'plc_password'))
 
 # Establish connection
@@ -10,7 +10,7 @@ connection = pika.BlockingConnection(connection_params)
 channel = connection.channel()
 
 # Declare the exchange
-channel.exchange_declare(exchange='plc_data_exchange', exchange_type='direct')
+channel.exchange_declare(exchange='plc_data_exchange', exchange_type='direct', durable=True)
 
 try:
     while True:
