@@ -55,3 +55,5 @@ async def Send_email(name, value, previous_value):
     except Exception as e:
         log.error(f"Couldnt send notification: {e}")
         
+        
+        

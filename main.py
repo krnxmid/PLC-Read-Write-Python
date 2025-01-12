@@ -43,14 +43,18 @@ GL_TAGS = [
     ("tag_5", 6104, 0, "Signed"),
 
 ]
-IP_ADDRESS = "192.168.1.145"
-PORT = 502
-COM_PORT = "/dev/ttyUSB0"
-HOST_URL = "3.111.210.28"
-USER = "plc_user"
-USER_PASSWORD = "plc_password" 
-EXCAHNGE_NAME = "plc_data_exchange"
-INTERVAL = 1
+IP_ADDRESS = "192.168.1.145" # IP address for tcp/ip connection
+PORT = 502 # Port for connection
+COM_PORT = "/dev/ttyUSB0" # Com port incase of rtu connection
+
+HOST_URL = "3.111.210.28" # IP address of EC2 Server for RabbitMQ
+USER = "plc_user" # RabbitMQ username
+USER_PASSWORD = "plc_password" # RabbitMQ user password
+EXCHANGE_NAME = "plc_data_exchange"# RabbitMQ Exchange for Sending Data
+ROUTING_KEY = "plc_data" # Routing key for outgoing data
+
+INTERVAL = 1 # Interval for Every Cycle
+FRICTIONAL_DIGIT = 2 # Amount of fractional digits
 
 async def initiate_modbus():
     '''Initiate modbus connection'''
@@ -183,14 +187,18 @@ def format_value(value):
         whole_part, fractional_part = value_str.split('.')
         
         # Keep only the first digit of the fractional part
-        if len(fractional_part) > 1:
-            fractional_part = fractional_part[0]  # Keep only the first digit
-        
+        if len(fractional_part) > FRICTIONAL_DIGIT:
+            fractional_part = fractional_part[0:FRICTIONAL_DIGIT]  # Keep only the first digit
+        elif len(fractional_part) <= FRICTIONAL_DIGIT and len(fractional_part) != 0:
+            required_zeros = FRICTIONAL_DIGIT - len(fractional_part)
+            zeros = "0"*required_zeros
+            fractional_part = fractional_part+zeros
         # Combine the whole part and the truncated fractional part
         result = whole_part + fractional_part
     else:
         # If it's an integer, just add a zero at the end
-        result = value_str + '0'
+        
+        result = value_str + '0'*FRICTIONAL_DIGIT
     
     return int(result)
 
@@ -262,7 +270,7 @@ async def email_notify(data, previous_value, lock):
             try:
                 # Send notification only when the value crosses the limit from below
                 response = await Send_email(tag_name, tag_value, previous_value.value)
-                # wapp_response = Send_wapp(tag_name, TAG2_LIMIT, tag_value, f"Previous Value: {previous_value.value}")
+                # wapp_response = Send_wapp(tag_name, TAG2_LIMIT, tag_value, previous_value.value)
                 log.info(f"previous value: {previous_value.value}")
                 log.info("Notification Sent")
                 previous_value.value = tag_value  # Update the previous_value after notification is sent
@@ -293,7 +301,7 @@ async def process():
     
     await get_write_requests(client)
     
-    publish_data(rabbitmq_channel, data_tags, EXCAHNGE_NAME)
+    publish_data(rabbitmq_channel, data_tags, EXCHANGE_NAME, ROUTING_KEY)
     end = time.time()
     log.info(f"Total time: {end-start}")
     # Wait before next cycle
