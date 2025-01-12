@@ -2,29 +2,23 @@ import pika
 
 from logger import log
 
-def declare_connection():
+def declare_connection(HOST_URL, USER, USER_PASSWORD):
     '''Declare the connection and other things like exchanges, queues'''
-    # Paramteres for connection
-    # HOST_URL = "65.0.237.181"
-    HOST_URL = "3.111.210.28"
-    USER = "plc_user"
-    USER_PASSWORD = "plc_password" 
-    EXCAHNGE_NAME = "plc_data_exchange"
-    
     # Try to connect to RabbitMQ
     try:
         connection_params = pika.ConnectionParameters(host=HOST_URL, credentials=pika.PlainCredentials(USER, USER_PASSWORD))
         connection = pika.BlockingConnection(connection_params)
         channel = connection.channel()
-        channel.exchange_declare(exchange=EXCAHNGE_NAME, exchange_type='direct', durable=True)
+        # channel.exchange_declare(exchange=EXCAHNGE_NAME, exchange_type='direct', durable=True)
         log.info("Connected to RabbitMQ")
     except Exception as e:
         log.info(f"Failed to connect with rabbit mq: {e}")
-    return channel
+    return channel, connection
     
-def publish_data(channel, tags_data):
+def publish_data(channel, tags_data, EXCAHNGE_NAME):
     '''Publish data to EC2'''
     
+    channel.exchange_declare(exchange=EXCAHNGE_NAME, exchange_type='direct', durable=True)
     # Convert the tags data into bytes to make it compatible with RabbitMQ's message body
     body = str(tags_data).encode("utf-8")
     

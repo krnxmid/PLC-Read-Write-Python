@@ -1,0 +1,28 @@
+2025-01-12 19:24:24,397 [INFO] logger         :39        Logger initialized successfully!
+2025-01-12 19:24:25,331 [INFO] rabbit_mq      :20        Connected to RabbitMQ
+2025-01-12 19:24:25,333 [INFO] main           :34        Modbus Device Connected
+2025-01-12 19:24:25,334 [INFO] main           :42        Getting Tags Data...
+2025-01-12 19:24:25,336 [INFO] main           :47        Reading tag: tag_1
+2025-01-12 19:24:25,358 [INFO] main           :64        Converted value for tag_1: 1230
+2025-01-12 19:24:25,359 [INFO] main           :70        Converted tag_1 into signed: 1230
+2025-01-12 19:24:25,360 [INFO] main           :47        Reading tag: tag_2
+2025-01-12 19:24:25,374 [INFO] main           :64        Converted value for tag_2: 12900
+2025-01-12 19:24:25,375 [INFO] main           :70        Converted tag_2 into signed: 12900
+2025-01-12 19:24:25,376 [INFO] main           :47        Reading tag: tag_3
+2025-01-12 19:24:25,390 [INFO] main           :64        Converted value for tag_3: 20
+2025-01-12 19:24:25,391 [INFO] main           :70        Converted tag_3 into signed: 20
+2025-01-12 19:24:25,392 [INFO] main           :47        Reading tag: tag_4
+2025-01-12 19:24:25,406 [INFO] main           :64        Converted value for tag_4: 10
+2025-01-12 19:24:25,407 [INFO] main           :70        Converted tag_4 into signed: 10
+2025-01-12 19:24:25,409 [INFO] main           :47        Reading tag: tag_5
+2025-01-12 19:24:25,422 [INFO] main           :64        Converted value for tag_5: 1650549345
+2025-01-12 19:24:25,423 [INFO] main           :70        Converted tag_5 into signed: 1650549345
+2025-01-12 19:24:25,425 [INFO] main           :79        Data after conversion: [['tag_1', 1230], ['tag_2', 12900], ['tag_3', 20], ['tag_4', 10], ['tag_5', 'abab']]
+2025-01-12 19:24:25,426 [CRITICAL] main           :172       tag_2 VALUE EXCEEDED 1500!
+2025-01-12 19:24:25,428 [CRITICAL] main           :173       tag_2 VALUE: 12900
+2025-01-12 19:24:28,703 [INFO] smtp_email     :37        Connected to SMTP!
+2025-01-12 19:24:28,705 [INFO] main           :181       previous value: 0
+2025-01-12 19:24:28,707 [INFO] main           :182       Notification Sent
+2025-01-12 19:24:28,995 [INFO] main           :141       No messages in the queue.
+2025-01-12 19:24:29,075 [INFO] rabbit_mq      :37        Message published successfully.
+2025-01-12 19:24:29,077 [INFO] main           :203       Total time: 4.010196208953857

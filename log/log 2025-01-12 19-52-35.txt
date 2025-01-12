@@ -1,0 +1,31 @@
+2025-01-12 19:52:35,047 [INFO] logger         :39        Logger initialized successfully!
+2025-01-12 19:52:36,263 [INFO] rabbit_mq      :20        Connected to RabbitMQ
+2025-01-12 19:52:36,265 [INFO] main           :60        Modbus Device Connected
+2025-01-12 19:52:36,266 [INFO] main           :71        Getting Tags Data...
+2025-01-12 19:52:36,267 [INFO] main           :77        Reading tag: tag_1
+2025-01-12 19:52:36,290 [INFO] main           :97        Converting data for tag tag_1 - High Word: 1230, Low Word: 0
+2025-01-12 19:52:36,291 [INFO] main           :99        Converted value for tag_1: 1230
+2025-01-12 19:52:36,292 [INFO] main           :107       Converted tag_1 into signed: 1230
+2025-01-12 19:52:36,294 [INFO] main           :77        Reading tag: tag_2
+2025-01-12 19:52:36,306 [INFO] main           :97        Converting data for tag tag_2 - High Word: 12900, Low Word: 0
+2025-01-12 19:52:36,307 [INFO] main           :99        Converted value for tag_2: 12900
+2025-01-12 19:52:36,308 [INFO] main           :107       Converted tag_2 into signed: 12900
+2025-01-12 19:52:36,310 [INFO] main           :77        Reading tag: tag_3
+2025-01-12 19:52:36,326 [INFO] main           :97        Converting data for tag tag_3 - High Word: 20, Low Word: 0
+2025-01-12 19:52:36,327 [INFO] main           :99        Converted value for tag_3: 20
+2025-01-12 19:52:36,328 [INFO] main           :107       Converted tag_3 into signed: 20
+2025-01-12 19:52:36,329 [INFO] main           :77        Reading tag: tag_4
+2025-01-12 19:52:36,342 [INFO] main           :97        Converting data for tag tag_4 - High Word: 10, Low Word: 0
+2025-01-12 19:52:36,343 [INFO] main           :99        Converted value for tag_4: 10
+2025-01-12 19:52:36,345 [INFO] main           :107       Converted tag_4 into signed: 10
+2025-01-12 19:52:36,346 [INFO] main           :77        Reading tag: tag_5
+2025-01-12 19:52:36,362 [INFO] main           :97        Converting data for tag tag_5 - High Word: 25185, Low Word: 25185
+2025-01-12 19:52:36,363 [INFO] main           :99        Converted value for tag_5: 1650549345
+2025-01-12 19:52:36,364 [INFO] main           :107       Converted tag_5 into signed: 1650549345
+2025-01-12 19:52:36,366 [INFO] main           :117       Data after conversion: [['tag_1', 1230], ['tag_2', 12900], ['tag_3', 20], ['tag_4', 10], ['tag_5', 'abab']]
+2025-01-12 19:52:36,367 [CRITICAL] main           :254       tag_2 VALUE EXCEEDED 1500!
+2025-01-12 19:52:36,369 [CRITICAL] main           :255       tag_2 VALUE: 12900
+2025-01-12 19:52:40,223 [INFO] smtp_email     :37        Connected to SMTP!
+2025-01-12 19:52:40,226 [INFO] main           :270       Previous Value: 0
+2025-01-12 19:52:40,228 [ERROR] main           :271       Cannot send Email notification: object NoneType can't be used in 'await' expression
+2025-01-12 19:52:40,522 [INFO] main           :215       No messages in the queue.

@@ -1,21 +1,15 @@
 from rabbit_mq import declare_connection, publish_data
 import pika
-
 from pymodbus.client import ModbusTcpClient
 from pymodbus.client import ModbusSerialClient
 import time
-
 from conversion import *
 import struct
-
 from logger import log
-
 import ast
-
 import asyncio
-
+import multiprocessing
 from smtp_email import Send_email
-
 from wapp import Send_wapp
 
 # GL_TAGS = [
@@ -49,33 +43,33 @@ GL_TAGS = [
     ("tag_5", 6104, 0, "Signed"),
 
 ]
-
+IP_ADDRESS = "192.168.1.145"
+PORT = 502
 COM_PORT = "/dev/ttyUSB0"
+HOST_URL = "3.111.210.28"
+USER = "plc_user"
+USER_PASSWORD = "plc_password" 
+EXCAHNGE_NAME = "plc_data_exchange"
+INTERVAL = 1
 
 async def initiate_modbus():
     '''Initiate modbus connection'''
     try:
-        # Modbus Rtu Connection
-        # client = ModbusSerialClient(port=COM_PORT, baudrate=9600, timeout=1)
-        
-        # TCP/IP Connection Params
-        IP_ADDRESS = "192.168.1.145"
-        PORT = 502
-        
         # Initiating Connection
         client = ModbusTcpClient(IP_ADDRESS, port=PORT)
         log.info("Modbus Device Connected")
         
     except Exception as e:
-        log.info(e)
+        log.error(f"Couldn't initiate modbus connection: {e}")
+
     return client
 
 async def get_tags_data(client):
     '''Get final tag values after conversions'''
     # List containing data of all tags
     data = []
-    
     log.info("Getting Tags Data...")
+    
     for tag in GL_TAGS:
         # async define name, address, decimals for the tags
         tag_name = tag[0]
@@ -124,12 +118,61 @@ async def get_tags_data(client):
     log.info(f"Data after conversion: {data}")
     return data
 
+    
+async def get_write_requests(client):
+    '''Get any requests for writing a register from write_requests queue'''
+    
+    # Connect to RabbitMQ
+    channel, connection = declare_connection(HOST_URL, USER, USER_PASSWORD)
+    # Declare the queue to listen to (ensure it exists or will be created)
+    channel.queue_declare(queue='write_requests', durable=False)
+
+    # Fetch a single message from the queue
+    method_frame, header_frame, body = channel.basic_get(queue='write_requests')
+
+    # Check if a message was received
+    if method_frame:  # If method_frame is not None, a message was received
+        try:
+            log.info(f"Received message: {body.decode()}")
+
+            # Assuming the body is a stringified list like ['tag_1', '123.0']
+            message_data = ast.literal_eval(body.decode())  # Convert string to list
+            tag_name = message_data[0]
+            
+            
+            if tag_name == "tag_5": # Recieve request for writing tag 5
+                ascii_write(message_data, client)   
+            else: # Write for tags other than tag 5
+                try:
+                    tag_value = message_data[1]
+                    # Format value for proper decimal
+                    converted_value = format_value(tag_value)
+                    
+                    try:
+                        response = write_double(client, tag_name, converted_value)
+                        log.info("Tag Written successfully!")
+                    except Exception as e:
+                        log.error(f"Tag not written: {e}")
+                except Exception as e:
+                    log.error(f"Tag not written, Unexpected error: {e}")
+                
+            # Acknowledge the message to avoid repitetion
+            channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+        except Exception as e:
+            log.error(f"Error processing message: {e}")
+    else:
+        log.info("No messages in the queue.")
+
+    # Close the connection
+    connection.close()
+
 def ascii_read(low_word, high_word, data):
     char1, char2 = convert_16bit_to_ascii(high_word)
     char3, char4 = convert_16bit_to_ascii(low_word)
     final_char = char1+char2+char3+char4
     data.append(["tag_5", final_char])
-    log.info
+    log.info(f"ASCII of tag_5: {final_char}")
+    
 def format_value(value):
     # Convert the input to a string to handle it easily
     value_str = str(value).strip()
@@ -140,7 +183,7 @@ def format_value(value):
         whole_part, fractional_part = value_str.split('.')
         
         # Keep only the first digit of the fractional part
-        if len(fractional_part) > 0:
+        if len(fractional_part) > 1:
             fractional_part = fractional_part[0]  # Keep only the first digit
         
         # Combine the whole part and the truncated fractional part
@@ -171,58 +214,6 @@ def write_double(client, tag_name, tag_value):
     client.write_register(address=tag_register, value=low_word)
     client.write_register(address=tag_register + 1, value=high_word)
     
-async def get_write_requests(client):
-    '''Get any requests for writing a register from write_requests queue'''
-    
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-        # host='65.0.237.181',  # Replace with the IP of your mini-computer
-        host='3.111.210.28',  # Replace with the IP of your mini-computer
-        virtual_host='/',  # Ensure this matches the vhost you're using
-        credentials=pika.PlainCredentials('plc_user', 'plc_password')  # Adjust if needed
-    ))
-
-    channel = connection.channel()
-
-    # Declare the queue to listen to (ensure it exists or will be created)
-    channel.queue_declare(queue='write_requests', durable=False)
-
-    # Fetch a single message from the queue
-    method_frame, header_frame, body = channel.basic_get(queue='write_requests')
-
-    # Check if a message was received
-    if method_frame:  # If method_frame is not None, a message was received
-        try:
-            log.info(f"Received message: {body.decode()}")
-
-            # Assuming the body is a stringified list like ['tag_1', '123.0']
-            message_data = ast.literal_eval(body.decode())  # Convert string to list
-            tag_name = message_data[0]
-            
-            
-            if tag_name == "tag_5": # Recieve request for writing tag 5
-                ascii_write(message_data, client)   
-            else: # Write for tags other than tag 5
-                try:
-                    tag_value = message_data[1]
-                    
-                    # Format value for proper decimal
-                    converted_value = format_value(tag_value)
-                    
-                    response = write_double(client, tag_name, converted_value)
-                    log.info("Tag Written successfully!")
-                except Exception as e:
-                    log.error(f"Tag not written: {e}")
-                
-            # Acknowledge the message
-            channel.basic_ack(delivery_tag=method_frame.delivery_tag)
-        except Exception as e:
-            log.error(f"Error processing message: {e}")
-    else:
-        log.info("No messages in the queue.")
-
-    # Close the connection
-    connection.close()
-    
 def ascii_write(message_data, client):
     tag_name = "5"
     tag_lower = int(message_data[1])  # Keep it as a string for now
@@ -239,10 +230,11 @@ def ascii_write(message_data, client):
     except Exception as e:
         log.error(f"Tag not written: {e}")
 
-previous_value = 0
 
-async def email_notify(data):
-    global previous_value
+previous_value = multiprocessing.Value('d', 0)  # Shared value, initial value is 0
+lock = multiprocessing.Lock()  # Lock to control access to shared value
+
+async def email_notify(data, previous_value, lock):
     TAG2_LIMIT = 1500
     '''Email Notification system'''
     tag_name = None
@@ -263,42 +255,49 @@ async def email_notify(data):
         log.info(f"{tag_name} Value Moderate")    
         log.critical(f"{tag_name} Value: {tag_value}")
 
-    # Check if the tag_value exceeds the limit and if the previous_value was below the limit
-    if tag_value > TAG2_LIMIT and previous_value <= TAG2_LIMIT:
-        try:
-            # Send notification only when the value crosses the limit from below
-            response = await Send_email(tag_name, f"{tag_value}, Previous Value: {previous_value}")
-            # wapp_response = Send_wapp(tag_name, TAG2_LIMIT, tag_value, f"Previous Value: {previous_value}")
-            log.info(f"previous value: {previous_value}")
-            log.info("Notification Sent")
-            previous_value = tag_value  # Update the previous_value after notification is sent
-        except Exception as e:
-            log.info(f"Previous Value: {previous_value}")
-            log.error(f"Cannot send Email notification: {e}")
-    else:
-        # If no notification is sent, just update the previous_value without sending a notification
-        previous_value = tag_value
-        log.info(f"Previous Value: {previous_value}")
-        log.info("Notification Not Sent.")
-        
+    # Acquire lock to prevent race conditions when accessing previous_value
+    with lock:
+        # Check if the tag_value exceeds the limit and if the previous_value was below the limit
+        if tag_value > TAG2_LIMIT and previous_value.value < TAG2_LIMIT:
+            try:
+                # Send notification only when the value crosses the limit from below
+                response = await Send_email(tag_name, tag_value, previous_value.value)
+                # wapp_response = Send_wapp(tag_name, TAG2_LIMIT, tag_value, f"Previous Value: {previous_value.value}")
+                log.info(f"previous value: {previous_value.value}")
+                log.info("Notification Sent")
+                previous_value.value = tag_value  # Update the previous_value after notification is sent
+            except Exception as e:
+                log.info(f"Previous Value: {previous_value.value}")
+                log.error(f"Cannot send Email notification: {e}")
+        else:
+            # If no notification is sent, just update the previous_value without sending a notification
+            previous_value.value = tag_value
+            log.info(f"Previous Value: {previous_value.value}")
+            log.info("Notification Not Sent.")
+
+def run_in_background(data, previous_value, lock):
+    asyncio.run(email_notify(data, previous_value, lock))
+
 async def process():
     '''Main process for functioning'''
-    # Declare the connection for RabbitMQ and Modbus Device
-    rabbitmq_channel = declare_connection()
+    start = time.time()
+    rabbitmq_channel, connection = declare_connection(HOST_URL, USER, USER_PASSWORD)
     client = await initiate_modbus()
     
     # Get the values for all the tags
     data_tags = await get_tags_data(client)
     
-    # Check for any notification
-    await email_notify(data_tags)
+    # Start background process to handle email notifications
+    background_process = multiprocessing.Process(target=run_in_background, args=(data_tags, previous_value, lock))
+    background_process.start()
     
-    # Write any request in the write_requests queue
     await get_write_requests(client)
-    publish_data(rabbitmq_channel, data_tags)
     
+    publish_data(rabbitmq_channel, data_tags, EXCAHNGE_NAME)
+    end = time.time()
+    log.info(f"Total time: {end-start}")
     # Wait before next cycle
-    time.sleep(1)
+    time.sleep(INTERVAL)
     client.close()
 
 async def main():

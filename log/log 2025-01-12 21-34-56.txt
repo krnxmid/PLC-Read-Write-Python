@@ -1,0 +1,34 @@
+2025-01-12 21:34:56,676 [INFO] logger         :39        Logger initialized successfully!
+2025-01-12 21:34:57,947 [INFO] rabbit_mq      :13        Connected to RabbitMQ
+2025-01-12 21:34:57,949 [INFO] main           :60        Modbus Device Connected
+2025-01-12 21:34:57,950 [INFO] main           :71        Getting Tags Data...
+2025-01-12 21:34:57,951 [INFO] main           :78        Reading tag: tag_1
+2025-01-12 21:34:57,994 [INFO] main           :98        Converting data for tag tag_1 - High Word: 7700, Low Word: 0
+2025-01-12 21:34:57,995 [INFO] main           :100       Converted value for tag_1: 7700
+2025-01-12 21:34:57,996 [INFO] main           :108       Converted tag_1 into signed: 7700
+2025-01-12 21:34:57,997 [INFO] main           :78        Reading tag: tag_2
+2025-01-12 21:34:58,010 [INFO] main           :98        Converting data for tag tag_2 - High Word: 5700, Low Word: 0
+2025-01-12 21:34:58,011 [INFO] main           :100       Converted value for tag_2: 5700
+2025-01-12 21:34:58,012 [INFO] main           :108       Converted tag_2 into signed: 5700
+2025-01-12 21:34:58,014 [INFO] main           :78        Reading tag: tag_3
+2025-01-12 21:34:58,046 [INFO] main           :98        Converting data for tag tag_3 - High Word: 20, Low Word: 0
+2025-01-12 21:34:58,047 [INFO] main           :100       Converted value for tag_3: 20
+2025-01-12 21:34:58,048 [INFO] main           :108       Converted tag_3 into signed: 20
+2025-01-12 21:34:58,049 [INFO] main           :78        Reading tag: tag_4
+2025-01-12 21:34:58,078 [INFO] main           :98        Converting data for tag tag_4 - High Word: 10, Low Word: 0
+2025-01-12 21:34:58,079 [INFO] main           :100       Converted value for tag_4: 10
+2025-01-12 21:34:58,081 [INFO] main           :108       Converted tag_4 into signed: 10
+2025-01-12 21:34:58,082 [INFO] main           :78        Reading tag: tag_5
+2025-01-12 21:34:58,118 [INFO] main           :98        Converting data for tag tag_5 - High Word: 25185, Low Word: 25185
+2025-01-12 21:34:58,119 [INFO] main           :100       Converted value for tag_5: 1650549345
+2025-01-12 21:34:58,120 [INFO] main           :108       Converted tag_5 into signed: 1650549345
+2025-01-12 21:34:58,121 [INFO] main           :174       ASCII of tag_5: abab
+2025-01-12 21:34:58,123 [INFO] main           :118       Data after conversion: [['tag_1', 7700], ['tag_2', 5700], ['tag_3', 20], ['tag_4', 10], ['tag_5', 'abab']]
+2025-01-12 21:34:58,141 [CRITICAL] main           :252       tag_2 VALUE EXCEEDED 1500!
+2025-01-12 21:34:58,143 [CRITICAL] main           :253       tag_2 VALUE: 5700
+2025-01-12 21:34:58,145 [INFO] main           :270       Previous Value: 0.0
+2025-01-12 21:34:58,147 [ERROR] main           :271       Cannot send Email notification: name 'previous_value' is not defined
+2025-01-12 21:34:58,411 [INFO] rabbit_mq      :13        Connected to RabbitMQ
+2025-01-12 21:34:58,510 [INFO] main           :164       No messages in the queue.
+2025-01-12 21:34:58,673 [INFO] rabbit_mq      :31        Message published successfully.
+2025-01-12 21:34:58,674 [INFO] main           :298       Total time: 0.9540467262268066
