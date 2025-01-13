@@ -1,18 +1,23 @@
 from rabbit_mq import declare_connection, publish_data
 import pika
+
 from pymodbus.client import ModbusTcpClient
 from pymodbus.client import ModbusSerialClient
-import time
+
 from conversion import *
+import time
 import struct
 from logger import log
 import ast
-import asyncio
-import multiprocessing
+
 from smtp_email import Send_email
 from wapp import Send_wapp
 
+import asyncio
+import multiprocessing
+
 # List of plc data registers
+# ({tag_name}, {address}, {decimals}, {type})
 GL_TAGS = [
     ("tag_1", 6096, 0, "Signed"),
     ("tag_2", 6098, 0, "Signed"),
@@ -31,8 +36,8 @@ USER_PASSWORD = "plc_password" # RabbitMQ user password
 EXCHANGE_NAME = "plc_data_exchange"# RabbitMQ Exchange for Sending Data
 ROUTING_KEY = "plc_data" # Routing key for outgoing data
 
-INTERVAL = 1 # Interval for Every Cycle
-FRICTIONAL_DIGIT = 2 # Amount of fractional digits
+CYCLE_INTERVAL = 1 # Interval for Every Cycle
+FRACTIONAL_DIGIT = 2 # Amount of fractional digits
 
 async def Initiate_Modbus():
     '''Initiate modbus connection'''
@@ -167,10 +172,10 @@ def Format_Value(value):
         whole_part, fractional_part = value_str.split('.')
         
         # Keep only the first digit of the fractional part
-        if len(fractional_part) > FRICTIONAL_DIGIT:
-            fractional_part = fractional_part[0:FRICTIONAL_DIGIT]  # Keep only the first digit
-        elif len(fractional_part) <= FRICTIONAL_DIGIT and len(fractional_part) != 0:
-            required_zeros = FRICTIONAL_DIGIT - len(fractional_part)
+        if len(fractional_part) > FRACTIONAL_DIGIT:
+            fractional_part = fractional_part[0:FRACTIONAL_DIGIT]  # Keep only the first digit
+        elif len(fractional_part) <= FRACTIONAL_DIGIT and len(fractional_part) != 0:
+            required_zeros = FRACTIONAL_DIGIT - len(fractional_part)
             zeros = "0"*required_zeros
             fractional_part = fractional_part+zeros
         # Combine the whole part and the truncated fractional part
@@ -178,7 +183,7 @@ def Format_Value(value):
     else:
         # If it's an integer, just add a zero at the end
         
-        result = value_str + '0'*FRICTIONAL_DIGIT
+        result = value_str + '0'*FRACTIONAL_DIGIT
     
     return int(result)
 
@@ -285,7 +290,7 @@ async def process():
     end = time.time()
     log.info(f"Total time: {end-start}")
     # Wait before next cycle
-    time.sleep(INTERVAL)
+    time.sleep(CYCLE_INTERVAL)
     client.close()
 
 async def main():
