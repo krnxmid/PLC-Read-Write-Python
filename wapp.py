@@ -22,8 +22,8 @@ def Send_wapp(name, limit, value, body):
     </html>
     """
     message = f"Subject: {subject}\nContent-Type: text/html\n\n{edited_body}"
-    RECIEVER = 9915323456
-    URL = f"http://148.251.129.118/wapp/api/send?apikey=3d27aec1ecef4ef2b3c4d13fe5112c3a&mobile={RECIEVER}&msg={message}"
+    RECIEVER = "YOUR NUMBER"
+    URL = "YOUR WHATSAPP API URL HERE"
 
     requests.post(URL)
     print(URL)
