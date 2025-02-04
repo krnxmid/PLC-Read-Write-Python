@@ -75,7 +75,7 @@ Handles RabbitMQ connectivity and message publishing.
 - **COM_PORT**: `/dev/ttyUSB0`
 
 ### RabbitMQ Connection:
-- **HOST_URL**: `3.111.210.28`
+- **HOST_URL**: `SERVER IP`
 - **USER**: `plc_user`
 - **PASSWORD**: `plc_password`
 - **EXCHANGE_NAME**: `plc_data_exchange`
@@ -92,7 +92,7 @@ Handles RabbitMQ connectivity and message publishing.
 ---
 
 ## How to Run
-1. Ensure dependencies (`pika`, `pymodbus`, `schedule`, etc.) are installed.
+1. Ensure dependencies (`pika`, `pymodbus`, etc.) are installed.
 2. Start the main application:
    ```bash
    python main.py
@@ -107,7 +107,7 @@ Handles RabbitMQ connectivity and message publishing.
 ## Dependencies
 Ensure the following Python packages are installed:
 ```bash
-pip install pymodbus pika schedule
+pip install pymodbus pika
 ```
 
 ---
