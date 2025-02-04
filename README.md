@@ -4,16 +4,13 @@
 This project is a PLC (Programmable Logic Controller) monitoring system that integrates with RabbitMQ for data exchange, logs system activities, and manages log files. The system retrieves and processes data from PLC registers using Modbus communication and supports ASCII conversions.
 
 ## Directory Structure
-```
-📁 project_root
-├── [conversion.py](conversion.py)      # Functions for handling 16-bit and 32-bit register conversions
-├── [log_deleter.py](log_deleter.py)     # Automated log deletion script
-├── [logger.py](logger.py)          # Logger setup for application logging
-├── [main.py](main.py)            # Main application for reading/writing Modbus data and RabbitMQ communication
-├── [rabbit_mq.py](rabbit_mq.py)       # RabbitMQ connection and data publishing
-```
 
----
+📁 project_root  
+├── [conversion.py](conversion.py)      # Functions for handling 16-bit and 32-bit register conversions  
+├── [log_deleter.py](log_deleter.py)     # Automated log deletion script  
+├── [logger.py](logger.py)          # Logger setup for application logging  
+├── [main.py](main.py)            # Main application for reading/writing Modbus data and RabbitMQ communication  
+├── [rabbit_mq.py](rabbit_mq.py)       # RabbitMQ connection and data publishing  
 
 ## Files and Descriptions
 
