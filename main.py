@@ -30,7 +30,7 @@ IP_ADDRESS = "192.168.1.145" # IP address for tcp/ip connection
 PORT = 502 # Port for connection
 COM_PORT = "/dev/ttyUSB0" # Com port incase of rtu connection
 
-HOST_URL = "3.111.210.28" # IP address of EC2 Server for RabbitMQ
+HOST_URL = "IP ADDRESS" # IP address of EC2 Server for RabbitMQ
 USER = "plc_user" # RabbitMQ username
 USER_PASSWORD = "plc_password" # RabbitMQ user password
 EXCHANGE_NAME = "plc_data_exchange"# RabbitMQ Exchange for Sending Data
