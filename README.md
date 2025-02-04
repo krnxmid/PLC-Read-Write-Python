@@ -111,6 +111,3 @@ pip install pymodbus pika schedule
 ```
 
 ---
-
-## Author
-[Your Name]
