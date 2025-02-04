@@ -3,9 +3,9 @@ from logger import log
 import asyncio
 
 async def Send_email(name, value, previous_value):
-    sender_email = "kforkaranveer@gmail.com"
-    password = "znci xbiy akmi ipsf"    
-    to_email = "kforkaranveer@gmail.com"
+    sender_email = "SENDER EMAIL"
+    password = "EMAIL PASSWORD (NOT ACTUAL PASSWORD BUT APP PASSWORD)"    
+    to_email = "TO EMAIL"
 
     subject = f"{name.upper()} Value exceeded limit: {value}"
     edited_body = f"""
