@@ -6,18 +6,18 @@ This project is a PLC (Programmable Logic Controller) monitoring system that int
 ## Directory Structure
 ```
 📁 project_root
-├── conversion.py      # Functions for handling 16-bit and 32-bit register conversions
-├── log_deleter.py     # Automated log deletion script
-├── logger.py          # Logger setup for application logging
-├── main.py            # Main application for reading/writing Modbus data and RabbitMQ communication
-├── rabbit_mq.py       # RabbitMQ connection and data publishing
+├── [conversion.py](conversion.py)      # Functions for handling 16-bit and 32-bit register conversions
+├── [log_deleter.py](log_deleter.py)     # Automated log deletion script
+├── [logger.py](logger.py)          # Logger setup for application logging
+├── [main.py](main.py)            # Main application for reading/writing Modbus data and RabbitMQ communication
+├── [rabbit_mq.py](rabbit_mq.py)       # RabbitMQ connection and data publishing
 ```
 
 ---
 
 ## Files and Descriptions
 
-### `conversion.py`
+### [`conversion.py`](conversion.py)
 Provides utility functions to handle conversion between different data formats (16-bit, 32-bit, and ASCII).
 
 #### Functions:
@@ -29,7 +29,7 @@ Provides utility functions to handle conversion between different data formats (
 
 ---
 
-### `log_deleter.py`
+### [`log_deleter.py`](log_deleter.py)
 Automates the deletion of old log files to manage storage efficiently.
 
 #### Features:
@@ -39,7 +39,7 @@ Automates the deletion of old log files to manage storage efficiently.
 
 ---
 
-### `logger.py`
+### [`logger.py`](logger.py)
 Sets up logging for the system with both file and console output.
 
 #### Features:
@@ -49,7 +49,7 @@ Sets up logging for the system with both file and console output.
 
 ---
 
-### `main.py`
+### [`main.py`](main.py)
 Main application that interacts with the PLC using Modbus and exchanges data with RabbitMQ.
 
 #### Features:
@@ -62,7 +62,7 @@ Main application that interacts with the PLC using Modbus and exchanges data wit
 
 ---
 
-### `rabbit_mq.py`
+### [`rabbit_mq.py`](rabbit_mq.py)
 Handles RabbitMQ connectivity and message publishing.
 
 #### Features:
@@ -117,4 +117,3 @@ pip install pymodbus pika schedule
 
 ## Author
 [Your Name]
-
