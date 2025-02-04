@@ -1,3 +1,0 @@
-2025-01-12 13:41:54,707 [INFO] logger         :39        Logger initialized successfully!
-2025-01-12 13:41:55,002 [INFO] rabbit_mq      :20        Connected to RabbitMQ
-2025-01-12 13:41:55,005 [INFO] rabbit_mq      :37        Message published successfully.
